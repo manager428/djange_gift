@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Login to your Account{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 my-4 py-4 bg-light shadow rounded">
+            <div class="title-all text-center">
+                <h1>Login to your Account</h1>
+            </div>
+            <div>
+                <form id="formRegister" action="/login/" method="POST">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                                <script>
+                                    $('.alert').alert()
+                                </script>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-12 font-weight-bold">
+                            <label for="email" class="mb-0">E-mail</label>
+                            <input type="email" class="form-control" name="email" value="{{email}}" placeholder="" required> </div>
+                        <div class="form-group col-md-12 font-weight-bold">
+                            <label for="password" class="mb-0">Password</label>
+                            <input type="password" class="form-control" name="password" placeholder="" required> </div>
+                    </div>
+                    <div class="text-center mt-2">
+                        <button type="submit" class="btn hvr-hover col-lg-2" style="color:white;">Log In</button>
+                    </div>
+                </form>
+            </div>
+            <div class="text-center mt-2">
+                <p><strong>OR</strong></p>
+            </div>
+            <div class="text-center mt-2">
+                <a href="/signup" class="btn hvr-hover col-lg-7" style="color:white;">New to MG ADVANCED TECHNOLOGY? Create An Account</a>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+{% endblock %}

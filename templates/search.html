@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Search Results | Lifestyle Electronics
+{% endblock %}
+
+{% block body %}
+
+<div class="shadow p-2 rounded" style="background-color:#e9ecef; color:black">
+    <div class="row text-center font-weight-bold">
+        <div class="col-lg-2 col-md-4 col-sm-6">
+            <p><a href="/search/?search={{search}}">All Products</a></p>
+        </div>
+        {% for category in categories %}
+        <div class="col-lg-2 col-md-4 col-sm-6">
+            <p><a href="/search/?search={{search}}&category={{category.id}}">{{category.category_name}}</a></p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-primary alert-dismissible fade show mb-0" role="alert">
+            {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="shop-box-inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+                <h1 class="text-center">Search results for '{{search}}'</h1>
+                <div class="product-item-filter row">
+                    <div class="col-12 col-sm-10 text-center text-sm-left">
+                        <div class="toolbar-sorter-right">
+                            <p>Showing all {{n}} product(s)</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-2 text-center text-sm-right">
+                        <ul class="nav nav-tabs ml-auto">
+                            <li>
+                                <a class="nav-link active" href="#grid-view" data-toggle="tab"> <i class="fas fa-th"></i> </a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="#list-view" data-toggle="tab"> <i class="fas fa-list-ul"></i> </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {% if products %}
+                <div class="row product-categorie-box">
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
+                            <div class="row">
+                                {% for product in products %}
+                                <div class="col-lg-3 col-md-6 special-grid">
+                                    <div class="products-single fix shadow-sm p-2 bg-white rounded">
+                                        <a href="/productdetail/{{product.id}}">
+                                        <div class="box-img-hover ctr" style="height:255px;">
+                                            <div class="type-lb">
+                                                <p class="sale">Sale</p>
+                                            </div>
+                                            <img src="{{product.product_img.url}}" class="img-fluid" alt="Image">
+                                            <div class="mask-icon"></div>
+                                        </div></a>
+                                        <div class="why-text text-center" style="height:155px;">
+                                            <h4><a href="/productdetail/{{product.id}}">{{product.product_name}}</a></h4>
+                                            <h5>DH {{product.price|intcomma}}</h5>
+                                            <div class="mt-2">
+                                                <a href="/buynow/{{product.id}}" class="btn hvr-hover cart" style="color:white">Buy Now</a>
+                                                <a href="/addtocart/{{product.id}}" class="btn hvr-hover cart" style="color:white">Add to Cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="list-view">
+                            {% for product in products %}
+                            <div class="list-view-box products-single shadow-sm">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                        <div class="fix shadow p-2 bg-white rounded">
+                                            <div class="box-img-hover ctr" style="height:255px;">
+                                                <div class="type-lb">
+                                                    <p class="new">New</p>
+                                                </div>
+                                                <img src="{{product.product_img.url}}" class="img-fluid" alt="Image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                                        <div class="why-text full-width">
+                                            <h4>{{product.product_name}}</h4>
+                                            <h5>DH{{product.price|intcomma}}</h5>
+                                            <ol class="my-2">
+                                                <li><strong>Brand : {{product.brand}}</strong></li>
+                                                <li><strong>Category : {{product.category.category_name}}</strong></li>
+                                            </ol>
+                                            <a class="btn hvr-hover my-2" href="/productdetail/{{product.id}}">View</a><br>
+                                            <a href="/buynow/{{product.id}}" class="btn hvr-hover cart" style="color:white">Buy Now</a>
+                                            <a class="btn hvr-hover" href="/addtocart/{{product.id}}">Add to Cart</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-lg-12 py-5">
+                        <div class="title-all text-center">
+                            <h1>No products not found!!!</h1>
+                            <p>Search another one.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus enim.</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create A New Account{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 my-4 py-4 bg-light shadow rounded">
+            <div class="title-all text-center">
+                <h1>Create An Account</h1>
+            </div>
+            <div>
+                <form id="formRegister" action="/signup/" method="POST">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                                <script>
+                                    $('.alert').alert()
+                                </script>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-12 font-weight-bold">
+                            <label for="email" class="mb-0">E-mail Address</label>
+                            <input type="email" class="form-control" name="email" value="{{email}}" required>
+                        </div>
+                        <div class="form-group col-md-6 font-weight-bold">
+                            <label for="fname" class="mb-0">First Name</label>
+                            <input type="text" class="form-control" name="fname" value="{{fname}}" required>
+                        </div>
+                        <div class="form-group col-md-6 font-weight-bold">
+                            <label for="lname" class="mb-0">Last Name</label>
+                            <input type="text" class="form-control" name="lname" value="{{lname}}" required>
+                        </div>
+                        <div class="form-group col-md-12 font-weight-bold">
+                            <label for="phone" class="mb-0">Mobile Number</label>
+                            <input type="tel" class="form-control" name="phone" value="{{phone}}" required>
+                        </div>
+                        <div class="form-group col-md-6 font-weight-bold">
+                            <label for="fname" class="mb-0">House No./Flat No./Apartment</label>
+                            <input type="text" class="form-control" name="house" value="{{house}}" required>
+                        </div>
+                        <div class="form-group col-md-6 font-weight-bold">
+                            <label for="fname" class="mb-0">Street/Locality</label>
+                            <input type="text" class="form-control" name="street" value="{{street}}" required>
+                        </div>
+                        <div class="form-group col-md-5 font-weight-bold">
+                            <label for="state" class="mb-0">State</label>
+                            <input type="text" class="form-control" name="state" value="{{state}}" required>
+                        </div>
+                        <div class="form-group col-md-4 font-weight-bold">
+                            <label for="city" class="mb-0">City</label>
+                            <input type="text" class="form-control" name="city" value="{{city}}" required>
+                        </div>
+                        <div class="form-group col-md-3 font-weight-bold">
+                            <label for="pin" class="mb-0">PIN Code</label>
+                            <input type="tel" class="form-control" name="pin" value="{{pin}}" required>
+                        </div>
+                        <div class="form-group col-md-12 font-weight-bold">
+                            <label for="pass1" class="mb-0">Choose Password</label>
+                            <input type="password" class="form-control" name="pass1" required>
+                        </div>
+                        <div class="form-group col-md-12 font-weight-bold">
+                            <label for="pass2" class="mb-0">Confirm Password</label>
+                            <input type="password" class="form-control" name="pass2" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input class="mb-0" type="checkbox" value="" id="tnc" required>
+                            <label class="mb-0" for="tnc">
+                                I accept the Terms of Use & Privacy Policy
+                            </label>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2">
+                        <button type="submit" class="btn hvr-hover col-lg-4" style="color:white;">Create Account</button>
+                    </div>
+                </form>
+            </div>
+            <div class="text-center mt-2">
+                <p><strong>OR</strong></p>
+            </div>
+            <div class="text-center mt-2">
+                <a href="/login" class="btn hvr-hover col-lg-6" style="color:white;">Existing Customer? Log in here</a>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+{% endblock %}

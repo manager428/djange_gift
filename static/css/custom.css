@@ -1,0 +1,25 @@
+
+/** ADD YOUR AWESOME CODES HERE **/
+
+.ctr {
+    display:flex; 
+    justify-content:center; 
+    align-items:center;
+}
+
+a.hvrcolor:hover, a.hvrcolor:active {
+    color: #426cf5;
+}
+
+.avatar {
+    vertical-align: middle;
+    height: 25px;
+    border-radius: 25%;
+}
+
+.cart-thumb {
+    height: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

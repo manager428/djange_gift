@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Checkout | Lifestyle Electronics
+{% endblock %}
+
+{% block body %}
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 mb-3">
+                <div class="odr-box">
+                    <div class="title-left">
+                        <h3>Shopping Cart</h3>
+                    </div>
+                    <div class="rounded p-2 bg-light">
+                        {% for cart in carts %}
+                        <div class="media mb-2 border-bottom">
+                            <div class="media-body"> <a href="/productdetail/{{cart.product_id}}"> {{cart.product.product_name}}</a>
+                                <div class="small text-muted">Price: DH {{cart.price|floatformat:2|intcomma}} <span class="mx-2">|</span> Qty: {{cart.qty}} <span class="mx-2">|</span> Subtotal: DH {{cart.amount|floatformat:2|intcomma}}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 mb-3">
+                <div class="odr-box">
+                    <div class="title-left mb-4">
+                        <h3>Your order</h3>
+                    </div>
+                    <div class="d-flex">
+                        <h4>Sub Total</h4>
+                        <div class="ml-auto font-weight-bold">DH {{total|floatformat:2|intcomma}}</div>
+                    </div>
+                    <div class="d-flex">
+                        <h4>Discount</h4>
+                        <div class="ml-auto font-weight-bold">DH {{discount|floatformat:2|intcomma}}</div>
+                    </div>
+                    <hr class="mb-4">
+                    <div class="d-flex">
+                        <h4>Shipping Cost</h4>
+                        <div class="ml-auto font-weight-bold"> Free </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex gr-total">
+                        <h5>Grand Total</h5>
+                        <div class="ml-auto h5">DH {{grand_total|floatformat:2|intcomma}}</div>
+                    </div>
+                    <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="checkout-address">
+                        <div class="title-left">
+                            <h3>Billing address</h3>
+                        </div>
+                        <form class="needs-validation" action='/checkout/' method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstname">First name *</label>
+                                    <input type="text" class="form-control" name="firstname" value="{{myuser.first_name}}" placeholder="" value="" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastname">Last name *</label>
+                                    <input type="text" class="form-control" name="lastname" value="{{myuser.last_name}}" placeholder="" value="" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone">Mobile No. *</label>
+                                <div class="input-group">
+                                    <input type="tel" class="form-control" name="phone" value="{{customer.phone}}" placeholder="" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="house_no">House No./Flat No./Apartment *</label>
+                                <input type="text" class="form-control" name="house_no" value="{{customer.house_no}}" placeholder="" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="street">Street/Locality *</label>
+                                <input type="text" class="form-control" name="street" value="{{customer.street}}" placeholder="" required> </div>
+                            <div class="row">
+                                <div class="col-md-5 mb-3">
+                                    <label for="state">State *</label>
+                                    <input class="form-control wide w-100" name="state" value="{{customer.state}}" placeholder="" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="city">City *</label>
+                                    <input class="form-control wide w-100" name="city" value="{{customer.city}}" placeholder="" required>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="pin">PIN Code *</label>
+                                    <input type="tel" class="form-control" name="pin" value="{{customer.pin}}" placeholder="" required>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="shipping-method-box">
+                                <div class="title-left">
+                                    <h3>Payment</h3>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="d-block my-3">
+                                        <div class="custom-control custom-radio">
+                                            <input name="credit" name="paymentMethod" type="radio" class="custom-control-input">
+                                            <label class="custom-control-label" for="credit">Credit card</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input name="debit" name="paymentMethod" type="radio" class="custom-control-input">
+                                            <label class="custom-control-label" for="debit">Debit card</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input name="paypal" name="paymentMethod" type="radio" class="custom-control-input">
+                                            <label class="custom-control-label" for="paypal">Paypal</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cc-name">Name on card</label>
+                                            <input type="text" class="form-control" name="cc-name" placeholder="" > <small class="text-muted">Full name as displayed on card</small>
+                                            <div class="invalid-feedback"> Name on card is required </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cc-number">Credit card number</label>
+                                            <input type="text" class="form-control" name="cc-number" placeholder="" >
+                                            <div class="invalid-feedback"> Credit card number is required </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 mb-3">
+                                            <label for="cc-expiration">Expiration</label>
+                                            <input type="text" class="form-control" name="cc-expiration" placeholder="" >
+                                            <div class="invalid-feedback"> Expiration date required </div>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="cc-expiration">CVV</label>
+                                            <input type="text" class="form-control" name="cc-cvv" placeholder="" >
+                                            <div class="invalid-feedback"> Security code required </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="payment-icon">
+                                                <ul>
+                                                    <li><img width="51px" height="31px" src="{% static 'images/payment-icon/1.png' %}" alt=""></li>
+                                                    <li><img width="51px" height="31px" src="{% static 'images/payment-icon/2.png' %}" alt=""></li>
+                                                    <li><img width="51px" height="31px" src="{% static 'images/payment-icon/3.png' %}" alt=""></li>
+                                                    <li><img width="51px" height="31px" src="{% static 'images/payment-icon/5.png' %}" alt=""></li>
+                                                    <li><img width="51px" height="31px" src="{% static 'images/payment-icon/7.png' %}" alt=""></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="shopping-box text-center"> <button type="submit" class="ml-auto btn hvr-hover" style="color:white">Place Order</button> </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

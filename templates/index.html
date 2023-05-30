@@ -1,0 +1,329 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Lifestyle Electronics
+{% endblock %}
+
+{% block body %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-primary alert-dismissible fade show mb-0" role="alert">
+            {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<!-- Start Slider -->
+<div id="slides-shop" class="cover-slides" style="height:500px">
+    <ul class="slides-container">
+        <li class="text-left">
+            <img src="{% static 'images/bg1.jpg' %}" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20"><strong>Welcome To <br> MG Advance Technologie</strong></h1>
+                        <p class="m-b-40">One Stop destination for all your electronic needs...</p>
+                        <p><a class="btn hvr-hover" href="/products">Shop Now</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="text-left">
+            <img src="{% static 'images/bg2.jpg' %}" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20"><strong>Welcome To <br> MG Advance Technologie</strong></h1>
+                        <p class="m-b-40">10% instant discount up to DH 10,000 on all products</p>
+                        <p><a class="btn hvr-hover" href="/products">Shop Now</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="text-left">
+            <img src="{% static 'images/bg3.jpg' %}" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20"><strong>Welcome To <br>MG Advance Technologie</strong></h1>
+                        <p class="m-b-40">Free shipping on all the products accross the world</p>
+                        <p><a class="btn hvr-hover" href="/products">Shop Now</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="slides-navigation">
+        <a href="#" class="next"><i class="fas fa-angle-right" aria-hidden="true"></i></a>
+        <a href="#" class="prev"><i class="fas fa-angle-left" aria-hidden="true"></i></a>
+    </div>
+</div>
+<!-- End Slider -->
+
+<div class="mt-2">
+    <div class="shadow p-2 rounded" style="background-color:#e9ecef; color:black">
+        <div class="container">
+            <div class="row text-center font-weight-bold">
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <p><a href="/products">All Products</a></p>
+                </div>
+                {% for category in categories %}
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <p><a href="/products/?category={{category.id}}">{{category.category_name}}</a></p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Start Products  -->
+<div class="products-box" style="padding:30px 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title-all text-center">
+                    <h1>Featured Products</h1>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for product in products %}
+            {% if product.tag == 'Featured' %}
+            <div class="col-lg-3 col-md-6 special-grid">
+                <div class="products-single fix shadow-sm p-2 bg-white rounded border border-4">
+                    <div class="box-img-hover ctr" style="height:255px;">
+                        <img src="{{product.product_img.url}}" class="img-fluid" alt="Image">
+                    </div>
+                    <div class="why-text text-center font-weight-bold" style="height:155px;">
+                        <h4><a href="/productdetail/{{product.id}}">{{product.product_name}}</a></h4>
+                        <h5>DH {{product.price|intcomma}}</h5>
+                        <div class="mt-2">
+                            <a href="/buynow/{{product.id}}" class="btn hvr-hover cart" style="color:white">Buy Now</a>
+                            <a href="/addtocart/{{product.id}}" class="btn hvr-hover cart" style="color:white">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="products-box" style="padding:20px 0px;" id="mobiles">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title-all text-center">
+                    <h1>Featured Chauffage</h1>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for mobile in mobiles %}
+            <div class="col-lg-3 col-md-6 special-grid" >
+                <div class="products-single fix shadow-sm p-2 bg-white rounded">
+                    <a href="/productdetail/{{mobile.id}}">
+                    <div class="box-img-hover ctr" style="height:255px;">
+                        <div class="type-lb">
+                            <p class="sale">Sale</p>
+                        </div>
+                        <img src="{{mobile.product_img.url}}" class="img-fluid" alt="Image">
+                        <div class="mask-icon"></div>
+                    </div></a>
+                    <div class="why-text text-center" style="height:155px;">
+                        <h4><a href="/productdetail/{{mobile.id}}">{{mobile.product_name}}</a></h4>
+                        <h5>DH {{mobile.price|intcomma}}</h5>
+                        <div class="mt-2">
+                            <a href="/buynow/{{mobile.id}}" class="btn hvr-hover cart" style="color:white">Buy Now</a>
+                            <a href="/addtocart/{{mobile.id}}" class="btn hvr-hover cart" style="color:white">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-12 ctr">
+                <a href="/products?category=1" class="btn hvr-hover" style="color:white">Show All</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="products-box" style="padding:20px 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title-all text-center">
+                    <h1>Featured Clima</h1>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for laptop in laptops %}
+            <div class="col-lg-3 col-md-6 special-grid">
+                <div class="products-single fix shadow-sm p-2 bg-white rounded">
+                    <a href="/productdetail/{{laptop.id}}">
+                    <div class="box-img-hover ctr" style="height:255px;">
+                        <div class="type-lb">
+                            <p class="sale">Sale</p>
+                        </div>
+                        <img src="{{laptop.product_img.url}}" class="img-fluid" alt="Image">
+                        <div class="mask-icon"></div>
+                    </div></a>
+                    <div class="why-text text-center" style="height:155px;">
+                        <h4><a href="/productdetail/{{laptop.id}}">{{laptop.product_name}}</a></h4>
+                        <h5>DH {{laptop.price|intcomma}}</h5>
+                        <div class="mt-2">
+                            <a href="/buynow/{{laptop.id}}" class="btn hvr-hover cart" style="color:white">Buy Now</a>
+                            <a href="/addtocart/{{laptop.id}}" class="btn hvr-hover cart" style="color:white">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-12 ctr">
+                <a href="/products/?category=2" class="btn hvr-hover" style="color:white">Show All</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="products-box" style="padding:20px 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title-all text-center">
+                    <h1>Featured Chauff-eau</h1>
+                    <p><p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for tv in tvs %}
+            <div class="col-lg-3 col-md-6 special-grid">
+                <div class="products-single fix shadow-sm p-2 bg-white rounded">
+                    <a href="/productdetail/{{tv.id}}">
+                    <div class="box-img-hover ctr" style="height:255px;">
+                        <div class="type-lb">
+                            <p class="sale">Sale</p>
+                        </div>
+                        <img src="{{tv.product_img.url}}" class="img-fluid" alt="Image">
+                        <div class="mask-icon"></div>
+                    </div></a>
+                    <div class="why-text text-center" style="height:155px;">
+                        <h4><a href="/productdetail/{{tv.id}}">{{tv.product_name}}</a></h4>
+                        <h5>DH {{tv.price|intcomma}}</h5>
+                        <div class="mt-2">
+                            <a href="/buynow/{{tv.id}}" class="btn hvr-hover cart" style="color:white">Buy Now</a>
+                            <a href="/addtocart/{{tv.id}}" class="btn hvr-hover cart" style="color:white">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-12 ctr">
+                <a href="/products/?category=3" class="btn hvr-hover" style="color:white">Show All</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="products-box" style="padding:20px 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title-all text-center">
+                    <h1>Featured solar panel</h1>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for headphone in headphones %}
+            <div class="col-lg-3 col-md-6 special-grid">
+                <div class="products-single fix shadow-sm p-2 bg-white rounded">
+                    <a href="/productdetail/{{headphone.id}}">
+                    <div class="box-img-hover ctr" style="height:255px;">
+                        <div class="type-lb">
+                            <p class="sale">Sale</p>
+                        </div>
+                        <img src="{{headphone.product_img.url}}" class="img-fluid" alt="Image">
+                        <div class="mask-icon"></div>
+                    </div></a>
+                    <div class="why-text text-center" style="height:155px;">
+                        <h4><a href="/productdetail/{{headphone.id}}">{{headphone.product_name}}</a></h4>
+                        <h5>DH {{headphone.price|intcomma}}</h5>
+                        <div class="mt-2">
+                            <a href="/buynow/{{headphone.id}}" class="btn hvr-hover cart" style="color:white">Buy Now</a>
+                            <a href="/addtocart/{{headphone.id}}" class="btn hvr-hover cart" style="color:white">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-12 ctr">
+                <a href="/products?category=6" class="btn hvr-hover" style="color:white">Show All</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="products-box" style="padding:20px 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title-all text-center">
+                    <h1>Featured Kitchen Appliances</h1>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for kitapp in kitapps %}
+            <div class="col-lg-3 col-md-6 special-grid">
+                <div class="products-single fix shadow-sm p-2 bg-white rounded">
+                    <a href="/productdetail/{{kitapp.id}}">
+                    <div class="box-img-hover ctr" style="height:255px;">
+                        <div class="type-lb">
+                            <p class="sale">Sale</p>
+                        </div>
+                        <img src="{{kitapp.product_img.url}}" class="img-fluid" alt="Image">
+                        <div class="mask-icon"></div>
+                    </div></a>
+                    <div class="why-text text-center" style="height:155px;">
+                        <h4><a href="/productdetail/{{kitapp.id}}">{{kitapp.product_name}}</a></h4>
+                        <h5>DH {{kitapp.price|intcomma}}</h5>
+                        <div class="mt-2">
+                            <a href="/buynow/{{kitapp.id}}" class="btn hvr-hover cart" style="color:white">Buy Now</a>
+                            <a href="/addtocart/{{kitapp.id}}" class="btn hvr-hover cart" style="color:white">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-12 ctr">
+                <a href="/products?category=8" class="btn hvr-hover" style="color:white">Show All</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Products  -->
+
+{% endblock %}
